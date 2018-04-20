@@ -1,4 +1,4 @@
-const config = require("../../config");
+// const config = require("../../config");
 const axios = require("axios");
 const router = require("express").Router();
 const articlesController = require("../../controllers/articlesController");
@@ -14,16 +14,18 @@ router.route("/:id")
 
 // route to search the new york times api
 router.get("/search", (req, res) => {
+  console.log(req.query);
 	let url;
 
   // if there are begin and end years
   if (req.query.begin_date && req.query.end_date)  {
-    url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${config.myKey}&q=${req.query.q}&begin_date=${req.query.begin_date}&end_date=${req.query.end_date}`;
+    url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=${req.query.q}&begin_date=${req.query.begin_date}&end_date=${req.query.end_date}`;
   // if there arent any years
   } else {
-    url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${config.myKey}&q=${req.query.q}`
+    url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=${req.query.q}`
   }
 
+  
   axios.get(url)
     .then(function(results) {
     	res.json(results.data.response.docs)
